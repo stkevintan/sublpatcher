@@ -1,0 +1,24 @@
+#!/bin/bash
+echo "安装sublime text 2.0.2..."
+sudo add-apt-repository ppa:webupd8team/sublime-text-2 -y
+sudo apt-get update
+sudo apt-get install sublime-text -y
+
+echo "fcitx中文输入法补丁..."
+sudo cp libsublime-imfix.so /opt/sublime_text_2/
+[ -f "/usr/bin/subl" ] && \
+sudo rm /usr/bin/subl
+sudo cp subl /usr/bin/
+
+echo "汉化主界面..."
+packpath='/opt/sublime_text_2/Pristine Packages'
+[ -f "$packpath"/backupDefault ] && \
+sudo rm "$packpath"/backupDefault
+[ -f "$packpath"/Default.sublime-package ] && \
+sudo mv "$packpath"/Default.sublime-package "$packpath"/backupDefault
+sudo cp Default.sublime-package "$packpath"/
+
+echo -n "安装完成...按[ENTER]键继续..."
+read w
+
+

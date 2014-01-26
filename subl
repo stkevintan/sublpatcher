@@ -1,0 +1,3 @@
+#!/bin/bash
+st_dir='/opt/sublime_text_2'
+LD_PRELOAD=$st_dir/libsublime-imfix.so $st_dir/sublime_text --class=sublime-text "$@"
