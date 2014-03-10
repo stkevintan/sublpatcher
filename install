@@ -5,12 +5,22 @@ sudo apt-get update
 sudo apt-get install sublime-text -y
 
 echo "fcitx中文输入法补丁..."
+sudo apt-get install build-essential
+sudo apt-get install libgtk2.0-dev
+gcc -shared -o libsublime-imfix.so imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC
 sudo cp libsublime-imfix.so /opt/sublime_text_2/
 [ -f "/usr/bin/subl" ] && \
 sudo rm /usr/bin/subl
 sudo cp subl /usr/bin/
 
-echo "汉化主界面..."
+
+echo -n "汉化主界面?[Y/n]?"
+read ans
+case "$ans" in  n*|N*)
+    echo -n "安装完成...按[ENTER]键继续..."
+    read w
+    exit 1;
+esac     
 packpath='/opt/sublime_text_2/Pristine Packages'
 [ -f "$packpath"/backupDefault ] && \
 sudo rm "$packpath"/backupDefault
